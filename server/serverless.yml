@@ -1,0 +1,18 @@
+functions:
+  api:
+    handler: index.mjs
+    events:
+      - http:
+          path: /{proxy+}
+          method: any
+          cors: true
+
+  websocket:
+    handler: socketHandler.handler
+    events:
+      - websocket:
+          route: $connect
+      - websocket:
+          route: $disconnect
+      - websocket:
+          route: sendMessage

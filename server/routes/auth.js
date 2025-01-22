@@ -1,12 +1,7 @@
-const {
-  login,
-  register,
-  getAllUsers,
-  setAvatar,
-  logOut,
-} = require("../controllers/userController");
+import { login, register, getAllUsers, setAvatar, logOut } from "../controllers/userController.mjs";
+import express from "express";
 
-const router = require("express").Router();
+const router = express.Router();
 
 router.post("/login", login);
 router.post("/register", register);
@@ -14,4 +9,4 @@ router.get("/allusers/:id", getAllUsers);
 router.post("/setavatar/:id", setAvatar);
 router.get("/logout/:id", logOut);
 
-module.exports = router;
+export default router;

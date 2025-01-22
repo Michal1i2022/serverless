@@ -1,6 +1,6 @@
-const Messages = require("../models/messageModel");
+import Messages from "../models/messageModel.mjs";
 
-module.exports.getMessages = async (req, res, next) => {
+export const getMessages = async (req, res, next) => {
   try {
     const { from, to } = req.body;
 
@@ -10,19 +10,18 @@ module.exports.getMessages = async (req, res, next) => {
       },
     }).sort({ updatedAt: 1 });
 
-    const projectedMessages = messages.map((msg) => {
-      return {
-        fromSelf: msg.sender.toString() === from,
-        message: msg.message.text,
-      };
-    });
+    const projectedMessages = messages.map((msg) => ({
+      fromSelf: msg.sender.toString() === from,
+      message: msg.message.text,
+    }));
+
     res.json(projectedMessages);
   } catch (ex) {
     next(ex);
   }
 };
 
-module.exports.addMessage = async (req, res, next) => {
+export const addMessage = async (req, res, next) => {
   try {
     const { from, to, message } = req.body;
     const data = await Messages.create({
